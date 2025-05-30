@@ -6,6 +6,7 @@ use App\Models\appointment_detail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -119,9 +120,13 @@ class HomeController extends Controller
 
     public function AppointmentEdit(appointment_detail $appointment): View
     {
+        Gate::define('update-appointment', function ($user, $appointment) {
+            return $user->id === $appointment->physician_id;
+        });
         $physician = User::where('id', $appointment->physician_id)->first();
         $patient = User::find($appointment->patient_id); // assuming patient is stored by ID in appointment_detail
 
+        Gate::authorize('update-appointment', $appointment);
         return view('schedule.AppointmentEdit', compact('appointment', 'physician', 'patient'));
     }
 
