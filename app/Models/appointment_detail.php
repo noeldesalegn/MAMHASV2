@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class appointment_detail extends Model
 {
-    public function mother() {
-        return $this->belongsTo(User::class, 'm_id');
+    protected $guarded = [];
+    public function patient() {
+        return $this->belongsTo(User::class, 'patient_id');
     }
 
     // Relationship to physician (User)
     public function physician() {
-        return $this->belongsTo(User::class, 'phy_id');
+        return $this->belongsTo(User::class, 'physician_id');
     }
 }

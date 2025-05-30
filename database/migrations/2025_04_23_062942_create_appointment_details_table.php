@@ -14,16 +14,18 @@ return new class extends Migration
     {
         Schema::create('appointment_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('m_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('phy_id')->constrained('users')->onDelete('cascade');
-            $table->string('Mother_Detail', 30);
-            $table->string('user_account_name', 35);
-            $table->date('Date');
-            $table->time('Time');
-            $table->datetime('setted_time')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->datetime('modified_on');
-            $table->string('setted_by', 500);
-            $table->text('status');
+            $table->foreignId('patient_id')   // instead of m_id
+            ->constrained('users')
+                ->onDelete('cascade');
+            $table->foreignId('physician_id') // instead of phy_id
+            ->constrained('users')
+                ->onDelete('cascade');
+            $table->string('mother_detail', 255)->nullable();
+            $table->string('user_account_name', 100);
+            $table->date('appointment_date');      // instead of Date
+            $table->time('appointment_time');      // instead of Time
+            $table->string('set_by', 100);         // instead of setted_by
+            $table->string('status', 50)->default('scheduled');
             $table->timestamps();
         });
     }

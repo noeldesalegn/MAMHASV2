@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\File;
 
 class RegisteredUserController extends Controller
 {
@@ -27,7 +31,36 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'FName' => ['required', 'string', 'max:255'],
+            'LName' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone_no' => ['required', 'string', 'max:255'],
+            'age' => ['required','integer','between:18,40' ],
+            'Gender' => ['required','string'],
+            'Registered_By' => ['required','string'],
+            'user_account_name' => ['required', 'string', 'max:255', 'unique:users'],
+            'user_account_type' => ['required', 'string', 'max:255'],
+            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048',File::types([ 'jpeg', 'png', 'jpg' ])],
+        ]);
+
+        $logoPath = $request->file('photo')->store('photos', 'public');
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        // 4. Merge in the logo path
+       $validated['photo'] = $logoPath;
+
+        // 5. Persist the user
+        $user = User::create($validated);
+
+        // 6. Log them in
+        Auth::login($user);
+
+        // 7. Redirect
+        return redirect('/');
+
     }
 
     /**
