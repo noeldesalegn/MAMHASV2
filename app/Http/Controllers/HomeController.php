@@ -16,56 +16,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+
+        $user = auth()->user();
+//        if (Auth::user()->user_account_type == 'patient') {
+//            return view()->route('dashboard')->with('error', 'You do not have permission to access this page.');
+//        }
+        return view('index',['user'=>$user]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
     public function dashboard()
     {
         return view('dashboard');
@@ -162,6 +120,21 @@ class HomeController extends Controller
         return redirect()
             ->route('schedule.docSchedule')
             ->with('success', 'Appointment deleted successfully.');
+    }
+    public function AppointmentShow(User $patient)
+    {
+        // Optionally check if the authenticated user matches the requested patient
+        if (auth()->user()->id !== $patient->id) {
+            abort(403, 'Unauthorized access to this appointment.');
+        }
+
+        // Load appointment details (adjust based on your relationship structure)
+        $appointments = $patient->appointmentsAsPatient()->latest()->get();
+
+        return view('schedule.show', [
+            'patient' => $patient,
+            'appointments' => $appointments
+        ]);
     }
 
 }

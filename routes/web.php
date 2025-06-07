@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Middleware\EnsureUserIsPatient;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('/',[HomeController::class,'index'])->middleware('auth');
+Route::get('/',[HomeController::class,'index'])->name('/')->middleware('auth');
 Route::get('/dashboard',[HomeController::class,'dashboard']);
 
 Route::middleware('guest')->group(function () {
@@ -35,5 +37,11 @@ Route::delete('/schedule/{appointment}/AppointmentDelete',[HomeController::class
     ->name('schedule.AppointmentDelete')
     ->middleware('auth');
 
+Route::get('/schedule/{patient}/AppointmentShow',[HomeController::class,'AppointmentShow'])->name('schedule.patientAppointments')->middleware(['auth', EnsureUserIsPatient::class]);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
+    Route::get('/medicines/create', [MedicineController::class, 'create'])->name('medicines.create');
+    Route::post('/medicines', [MedicineController::class, 'store'])->name('medicines.store');
+});
 
 Route::delete('/logout',[SessionController::class,'destroy'])->name('logout')->middleware('auth');
