@@ -38,10 +38,17 @@ Route::delete('/schedule/{appointment}/AppointmentDelete',[HomeController::class
     ->middleware('auth');
 
 Route::get('/schedule/{patient}/AppointmentShow',[HomeController::class,'AppointmentShow'])->name('schedule.patientAppointments')->middleware(['auth', EnsureUserIsPatient::class]);
-Route::middleware(['auth'])->group(function () {
-    Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
-    Route::get('/medicines/create', [MedicineController::class, 'create'])->name('medicines.create');
-    Route::post('/medicines', [MedicineController::class, 'store'])->name('medicines.store');
+// routes/web.php
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('medicines', MedicineController::class)
+        ->only(['index','create','store','show','destroy']);
 });
+Route::get('medicines/{medicine}', [MedicineController::class, 'show'])->name('medicines.show');
+Route::get('medicines/{medicine}/edit', [MedicineController::class, 'edit'])->name('medicines.edit')->middleware('auth');
+Route::put('medicines/{medicine}', [MedicineController::class, 'update'])->name('medicines.update')->middleware('auth');
+
 
 Route::delete('/logout',[SessionController::class,'destroy'])->name('logout')->middleware('auth');

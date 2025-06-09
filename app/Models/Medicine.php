@@ -16,4 +16,8 @@ class Medicine extends Model
     {
         return $this->belongsTo(User::class, 'prescribed_to');
     }
+    public function prescriber()
+    {
+        return $this->belongsTo(User::class, 'prescribed_by');
+    }
 }
