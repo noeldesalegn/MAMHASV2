@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\SessionController;
 use App\Http\Middleware\EnsureUserIsPatient;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,13 @@ Route::middleware('auth')->group(function () {
 Route::get('medicines/{medicine}', [MedicineController::class, 'show'])->name('medicines.show');
 Route::get('medicines/{medicine}/edit', [MedicineController::class, 'edit'])->name('medicines.edit')->middleware('auth');
 Route::put('medicines/{medicine}', [MedicineController::class, 'update'])->name('medicines.update')->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('results', ResultsController::class)->only(['index', 'create', 'store', 'show', 'destroy']);
+});
+Route::get('results/{result}/edit', [ResultsController::class, 'edit'])->name('results.edit')->middleware('auth');
+Route::put('results/{result}', [ResultsController::class, 'update'])->name('results.update')->middleware('auth');
+
 
 
 Route::delete('/logout',[SessionController::class,'destroy'])->name('logout')->middleware('auth');
