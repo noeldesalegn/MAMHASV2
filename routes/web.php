@@ -8,6 +8,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Middleware\EnsureUserIsPatient;
 use Illuminate\Support\Facades\Route;
 
+
 //Route::get('/', function () {
 //    return view('welcome');
 //});
@@ -57,6 +58,10 @@ Route::middleware('auth')->group(function () {
 Route::get('results/{result}/edit', [ResultsController::class, 'edit'])->name('results.edit')->middleware('auth');
 Route::put('results/{result}', [ResultsController::class, 'update'])->name('results.update')->middleware('auth');
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/chat', function () {
+        return view('chat.index'); // create this view to hold both components
+    })->name('chat.index');
+});
 
 Route::delete('/logout',[SessionController::class,'destroy'])->name('logout')->middleware('auth');

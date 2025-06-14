@@ -87,37 +87,6 @@
                         </td>
 
                     </tr>
-{{--                    <tr class="border-b border-stone-200 last:border-0">--}}
-{{--                        <td class="p-3">--}}
-{{--                            <div class="flex items-center gap-3">--}}
-{{--                                <img src="https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg" alt="Alexa Liras" class="inline-block object-cover object-center w-8 h-8 rounded" />--}}
-{{--                                <div class="flex flex-col">--}}
-{{--                                    <small class="font-sans antialiased text-sm text-current">Alexa Liras</small>--}}
-{{--                                    <small class="font-sans antialiased text-sm text-current opacity-70">alexa@creative-tim.com</small>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </td>--}}
-{{--                        <td class="p-3">--}}
-{{--                            <div class="flex flex-col">--}}
-{{--                                <small class="font-sans antialiased text-sm text-current">Programator</small>--}}
-{{--                                <small class="font-sans antialiased text-sm text-current opacity-70">Developer</small>--}}
-{{--                            </div>--}}
-{{--                        </td>--}}
-{{--                        <td class="p-3">--}}
-{{--                            <div class="w-max">--}}
-{{--                                <div class="relative inline-flex w-max items-center border font-sans font-medium rounded-md text-xs p-0.5 shadow-sm bg-stone-200 border-stone-200 text-stone-800">--}}
-{{--                                    <span class="font-sans text-current leading-none my-0.5 mx-1.5">Offline</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </td>--}}
-{{--                        <td class="p-3">--}}
-{{--                            <small class="font-sans antialiased text-sm text-current">23/04/18</small>--}}
-{{--                        </td>--}}
-{{--                        <td class="p-3">--}}
-{{--                            <button class="inline-grid place-items-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm min-w-[38px] min-h-[38px] rounded-md bg-transparent border-transparent text-stone-800 hover:bg-stone-200/10 hover:border-stone-600/10 shadow-none hover:shadow-none outline-none group"><svg width="1.5em" height="1.5em" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor" class="h-4 w-4 text-stone-800 dark:text-white"><path d="M14.3632 5.65156L15.8431 4.17157C16.6242 3.39052 17.8905 3.39052 18.6716 4.17157L20.0858 5.58579C20.8668 6.36683 20.8668 7.63316 20.0858 8.41421L18.6058 9.8942M14.3632 5.65156L4.74749 15.2672C4.41542 15.5993 4.21079 16.0376 4.16947 16.5054L3.92738 19.2459C3.87261 19.8659 4.39148 20.3848 5.0115 20.33L7.75191 20.0879C8.21972 20.0466 8.65806 19.8419 8.99013 19.5099L18.6058 9.8942M14.3632 5.65156L18.6058 9.8942" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></svg>--}}
-{{--                            </button>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
                     @endforeach
                     </tbody>
                 </table>
